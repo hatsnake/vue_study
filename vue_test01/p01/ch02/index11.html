@@ -8,17 +8,15 @@
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-    <div id="simple">
-        <input type="text" v-model="name" placeholder="이름을 입력하세요" />
-        <br />
-        입력된 이름 : <h2 v-html="name"></h2>
+    <div id="example">
+        <span v-pre>{{message}}</span>
     </div>
-
+    
     <script type="text/javascript">
-        var twoway = new Vue({
-            el: "#simple",
+        var vm = new Vue({
+            el: "#example",
             data: {
-                name: ''
+                message : "Hello World"
             }
         })
     </script>

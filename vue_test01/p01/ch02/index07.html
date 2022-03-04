@@ -8,17 +8,21 @@
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-    <div id="simple">
-        <input type="text" v-model="name" placeholder="이름을 입력하세요" />
+    <div id="account">
+        잔고: <input type="text" v-model="balance" />
         <br />
-        입력된 이름 : <h2 v-html="name"></h2>
+        회원님의 등급 :
+        <span v-if="balance >= 1000000">GOLD</span>
+        <span v-else-if="balance >= 500000">SILVER</span>
+        <span v-else-if="balance >= 200000">BRONZE</span>
+        <span v-else>Basic</span>
     </div>
 
     <script type="text/javascript">
-        var twoway = new Vue({
-            el: "#simple",
+        var simple1 = new Vue({
+            el: "#account",
             data: {
-                name: ''
+                balance: 0
             }
         })
     </script>
