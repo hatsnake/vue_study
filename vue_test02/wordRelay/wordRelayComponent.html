@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 컴포넌트는 열고 닫는 태그로 만들어야 각자 컴포넌트 결과가 나옴 -->
+        <word-relay start-word="제로초"></word-relay>
+        <word-relay start-word="초밥"></word-relay>
+        <word-relay start-word="바보"></word-relay>
+    </div>
+
+    <!-- 뷰 글로벌(전역) 컴포넌트 -->
+    <script>
+        Vue.component('word-relay', {
+            // 최상위 div태그를 만들어서 각자 분리해줘야 한다. => div태그만 가능 => cdn의 한계점
+            template: `
+                <div>
+                    <div>{{word}}</div>
+                    <form v-on:submit="onSubmitForm">
+                        <input type="text" ref='answer' v-model="value">
+                        <button type="submit">입력</button>
+                    </form>
+                    <div>{{result}}</div>
+                </div>
+            `,
+            // 호출 컴포넌트에 속성을 통해 속성값을 가져옴 
+            // => 호출 컴포넌트에서 케밥케이스로 작성하더라도카멜케이스와 케밥케이스 둘다 적용된다.
+            props: ['start-word'],
+            // 컴포넌트에서는 데이터를 함수단위로 보내줘야 된다. => 각자의 컴포넌트마다 데이터가 달라야 하기 때문에
+            data() {
+                return {
+                    word: this.startWord,
+                    result: '',
+                    value: '',
+                };
+            },
+            methods: {
+                onSubmitForm(e) {
+                    e.preventDefault();
+                    if(this.word[this.word.length - 1] === this.value[0]) {
+                        this.result = '딩동댕';
+                        this.word = this.value;
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    } else {
+                        this.result = '땡';
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+                },
+            }
+        })
+    </script>
+
+    <!-- 뷰 인스턴스 : 뷰 컴포넌트보다 하단에 있어야 에러가 발생하지 않음 -->
+    <script>
+        const app = new Vue({
+            el: '#root',
+        });
+    </script>
+</body>
+</html>

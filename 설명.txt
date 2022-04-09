@@ -1,0 +1,3 @@
+vue_test01 : vue 책 연습
+
+vue_test02 : https://www.youtube.com/watch?v=TIHluPn05VY&list=PLcqDmjxt30RsdnPeU0ogHFMoggSQ_d7ao

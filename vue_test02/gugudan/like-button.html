@@ -1,0 +1,36 @@
+<!--
+    데이터가 바뀌면 vue에서 알아서 화면을 바꿔주기 때문에
+    개발자는 데이터만 관리해주면 된다.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좋아요</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- v-if, v-else는 인접해 있는 기준 -->
+        <div v-if="liked">좋아요 눌렀음</div>
+        <button v-else v-on:click="onClickButton">Like</button>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: '#root',
+            data: {
+                liked: false,
+            },
+            methods: {
+               onClickButton() {
+                   this.liked = true;
+               },
+            }
+        });
+    </script>
+
+</body>
+</html>

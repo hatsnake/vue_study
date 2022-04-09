@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구구단</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div>{{first}}곱하기 {{second}} 는?</div>
+        <form v-on:submit="onSubmitForm">
+            <!-- 양방향 바인딩 : input에서 바뀌는 값을 data의 value에서 받고 싶을때 v-model사용 -->
+            <input type="number" ref="answer" v-model="value">
+            <button type="submit">입력</button>
+        </form>
+        <div id="result">{{result}}</div>
+    </div>
+    <script text="text/javascript">
+        const app = new Vue({
+            el: "#root",
+            // vue는 data, react는 state
+            data: {
+                first: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: '',
+                result: '',
+            },
+            methods: {
+                // 함수에 파라미터에 e를 넣어줘야지 작동함
+                onSubmitForm(e) {
+                    // this는 vue인스턴스의 메모리주소를 가리킴
+                    console.log(this);
+                    // form이 전송되면서 새로고침을 막는 기능
+                    e.preventDefault();
+                    if(this.first * this.second === parseInt(this.value)) {
+                        this.result = '정답';
+                        this.first = Math.ceil(Math.random() * 9);
+                        this.second = Math.ceil(Math.random() * 9);
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    } else {
+                        this.result = '땡';
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
